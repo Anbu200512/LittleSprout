@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>LittleSprout | Shop - Eco-Friendly Baby & Toddler Products</title>
+<link rel="icon" type="image/png" href="images/logo.png">    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { 
+                extend: { 
+                    colors: { 
+                        primary: '#F472B6',
+                        secondary: '#60A5FA',
+                        accent: '#FCD34D',
+                        darkBg: '#0F172A'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'quicksand': ['Quicksand', 'sans-serif']
+                    }
+                } 
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; transition: all 0.3s ease; }
+        body.light { background: #FFF9FB; }
+        body.dark { background: #0F172A; }
+        body.menu-open { overflow: hidden; }
+        body.cart-open { overflow: hidden; }
+        
+        /* ===== NAVBAR ===== */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(244, 114, 182, 0.25); transition: all 0.3s ease; }
+        .dark .navbar { background: rgba(15, 23, 42, 0.95); border-bottom-color: rgba(96, 165, 250, 0.3); }
+        .nav-container { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.5rem; }
+        .nav-3-part { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .nav-part-left { flex-shrink: 0; }
+        .logo { display: flex; align-items: center; gap: 6px; text-decoration: none; padding: 6px 8px; transition: all 0.3s ease; }
+        .logo i { font-size: 1.8rem; color: #F472B6; }
+        .logo-text { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.3px; font-family: 'Quicksand', monospace; }
+        .logo-text .pink { color: #F472B6; }
+        .logo-text .blue { color: #60A5FA; }
+        .dark .logo-text .pink { color: #F472B6; }
+        .dark .logo-text .blue { color: #60A5FA; }
+        
+        .nav-part-center { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.25rem; white-space: nowrap; }
+        .nav-link { font-size: 14px; font-weight: 600; padding: 8px 12px; border-radius: 40px; color: #1F2937; transition: all 0.3s ease; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; text-decoration: none; white-space: nowrap; }
+        .dark .nav-link { color: #E5E7EB; }
+        .nav-link:hover, .nav-link.active { background: #F472B6; color: white !important; box-shadow: 0 5px 15px rgba(244, 114, 182, 0.3); transform: translateY(-2px); }
+        .dark .nav-link:hover, .dark .nav-link.active { background: #60A5FA; color: white !important; }
+        
+        .dropdown { position: relative; }
+        .dropdown-menu { position: absolute; top: 100%; margin-top: 12px; min-width: 200px; background: white; border-radius: 24px; padding: 10px; box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15); border: 1px solid rgba(244, 114, 182, 0.2); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.25s ease; z-index: 1001; }
+        .dark .dropdown-menu { background: #1E293B; border-color: rgba(96, 165, 250, 0.3); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 16px; color: #1F2937; font-weight: 500; font-size: 13px; transition: all 0.2s ease; text-decoration: none; cursor: pointer; }
+        .dark .dropdown-item { color: #E5E7EB; }
+        .dropdown-item:hover { background: #F472B6; color: white; transform: translateX(5px); }
+        .dark .dropdown-item:hover { background: #60A5FA; }
+        
+        .profile-dropdown { position: relative; }
+        .profile-dropdown-menu { position: absolute; top: 100%; margin-top: 12px; min-width: 180px; background: white; border-radius: 24px; padding: 10px; box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15); border: 1px solid rgba(244, 114, 182, 0.2); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.25s ease; z-index: 1001; right: 0; left: auto; }
+        .dark .profile-dropdown-menu { background: #1E293B; border-color: rgba(96, 165, 250, 0.3); }
+        .profile-dropdown:hover .profile-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        
+        .nav-part-right { flex-shrink: 0; display: flex; align-items: center; gap: 0.5rem; }
+        .action-btn { width: 40px; height: 40px; border-radius: 40px; background: #F472B6; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: none; box-shadow: 0 4px 12px rgba(244, 114, 182, 0.3); flex-shrink: 0; }
+        .dark .action-btn { background: #60A5FA; }
+        .action-btn:hover { transform: translateY(-2px) scale(1.05); }
+        .hamburger { display: none; background: #F472B6; border: none; cursor: pointer; width: 40px; height: 40px; border-radius: 40px; align-items: center; justify-content: center; color: white; flex-shrink: 0; }
+        .dark .hamburger { background: #60A5FA; }
+        .desktop-auth-buttons { display: flex; align-items: center; gap: 0.5rem; }
+        
+        @media (max-width: 1100px) { .nav-link { padding: 8px 10px; font-size: 13px; } }
+        @media (max-width: 1000px) { .nav-part-center { display: none !important; } .desktop-auth-buttons { display: none !important; } .hamburger { display: flex !important; } .profile-dropdown { display: none !important; } }
+        @media (min-width: 1001px) { .hamburger { display: none !important; } .nav-part-center { display: flex !important; } .desktop-auth-buttons { display: flex !important; } .profile-dropdown { display: block !important; } }
+        @media (max-width: 768px) { .nav-container { padding: 0.5rem 1rem; } .logo-text { font-size: 1.2rem; } .logo i { font-size: 1.5rem; } .action-btn, .hamburger { width: 36px; height: 36px; } }
+        
+        /* Mobile Menu */
+        .mobile-menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 1999; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu { position: fixed; top: 0; right: 0; bottom: 0; width: 85%; max-width: 380px; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); z-index: 2000; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); overflow-y: auto; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1); }
+        .dark .mobile-menu { background: rgba(15, 23, 42, 0.98); }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(96, 165, 250, 0.15)); border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        .mobile-close { width: 48px; height: 48px; border-radius: 30px; background: #F472B6; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; border: none; }
+        .dark .mobile-close { background: #60A5FA; }
+        .mobile-nav-items { padding: 0 20px 20px 20px; }
+        .mobile-nav-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; margin: 6px 0; border-radius: 20px; font-weight: 600; background: white; border: 1px solid rgba(244, 114, 182, 0.2); cursor: pointer; text-decoration: none; color: #1F2937; width: 100%; transition: all 0.25s ease; }
+        .dark .mobile-nav-link { background: #1E293B; color: #E5E7EB; border-color: rgba(96, 165, 250, 0.25); }
+        .mobile-nav-link:hover, .mobile-nav-link.active { background: linear-gradient(135deg, #F472B6, #60A5FA); color: white !important; transform: translateX(5px); }
+        .mobile-submenu-items { margin-left: 20px; padding-left: 18px; border-left: 2px solid #F472B6; display: none; }
+        .dark .mobile-submenu-items { border-left-color: #60A5FA; }
+        .mobile-submenu-items.open { display: block; }
+        .mobile-submenu-items a { display: block; padding: 10px 16px; margin: 6px 0; border-radius: 16px; text-decoration: none; color: #4B5563; background: #F9FAFB; cursor: pointer; transition: all 0.2s; }
+        .dark .mobile-submenu-items a { color: #CBD5E1; background: #0F172A; }
+        .mobile-submenu-items a:hover { background: linear-gradient(135deg, #F472B6, #60A5FA); color: white; }
+        .mobile-settings { background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(96, 165, 250, 0.1)); border-radius: 28px; padding: 20px; margin-top: 25px; }
+        .mobile-setting-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
+        .mobile-setting-label { font-weight: 600; display: flex; align-items: center; gap: 12px; color: #1F2937; }
+        .dark .mobile-setting-label { color: #E5E7EB; }
+        
+        .main-content { padding-top: 73px; }
+        @media (max-width: 768px) { .main-content { padding-top: 65px; } }
+        
+        .product-card { transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+        .product-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 30px 40px -20px rgba(244, 114, 182, 0.3); }
+        
+        /* Floating Cart */
+        .floating-cart { position: fixed; bottom: 30px; right: 30px; z-index: 999; width: 60px; height: 60px; border-radius: 60px; background: linear-gradient(135deg, #F472B6, #60A5FA); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 25px -5px rgba(244, 114, 182, 0.5); transition: all 0.3s ease; }
+        .floating-cart:hover { transform: scale(1.1); }
+        .floating-cart-count { position: absolute; top: -5px; right: -5px; background: #F472B6; color: white; font-size: 12px; font-weight: bold; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; }
+        .dark .floating-cart-count { background: #60A5FA; }
+        
+        /* Cart Sidebar */
+        .cart-sidebar { position: fixed; top: 0; right: 0; width: 100%; max-width: 450px; height: 100vh; background: white; z-index: 2001; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); display: flex; flex-direction: column; box-shadow: -5px 0 30px rgba(0,0,0,0.1); }
+        .dark .cart-sidebar { background: #1E293B; }
+        .cart-sidebar.open { transform: translateX(0); }
+        .cart-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .cart-overlay.active { opacity: 1; visibility: visible; }
+        
+        /* Category Filters */
+        .filters-wrapper { overflow-x: auto; white-space: nowrap; scrollbar-width: thin; -webkit-overflow-scrolling: touch; padding-bottom: 8px; }
+        .filters-wrapper::-webkit-scrollbar { height: 4px; }
+        .filters-wrapper::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
+        .filters-wrapper::-webkit-scrollbar-thumb { background: #F472B6; border-radius: 10px; }
+        .filter-btn { display: inline-flex; white-space: nowrap; cursor: pointer; transition: all 0.2s ease; }
+        .filter-btn.active { background: #F472B6; color: white; }
+        .dark .filter-btn.active { background: #60A5FA; }
+        
+        /* Hero Section - Same as Contact Page */
+        .shop-hero {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.85), rgba(96, 165, 250, 0.85)), url('images/t5.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .dark .shop-hero {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.9), rgba(96, 165, 250, 0.9)), url('images/t5.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Footer */
+        footer { background: #FFFFFF; border-top: none; }
+        .dark footer { background: #0F172A; }
+        .social-icon { transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 9999px; background: #f3f4f6; color: #4B5563; }
+        .dark .social-icon { background: #1E293B; color: #94A3B8; }
+        .social-icon:hover { background: #F472B6 !important; color: white !important; transform: translateY(-3px); }
+        .dark .social-icon:hover { background: #60A5FA !important; }
+        
+        .footer-link { transition: all 0.2s ease; }
+        .footer-link:hover { color: #F472B6; transform: translateX(3px); }
+        .dark .footer-link:hover { color: #60A5FA; }
+        
+        .green-line { height: 4px; background: linear-gradient(90deg, #F472B6, #60A5FA, #F472B6); width: 100%; }
+        
+        .dark, .dark * { color-scheme: dark; }
+        .dark .text-gray-900, .dark .text-gray-800, .dark .text-gray-700, .dark .text-gray-600, 
+        .dark .text-gray-500, .dark p, .dark h1, .dark h2, .dark h3, .dark h4, .dark li,
+        .dark .font-bold, .dark .font-black { color: #F1F5F9 !important; }
+        .dark .bg-white, .dark .bg-gray-50, .dark .bg-gray-100 { background-color: #0F172A !important; }
+        .dark .border-gray-200 { border-color: #334155 !important; }
+    </style>
+</head>
+<body class="light font-inter">
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-3-part">
+                <div class="nav-part-left">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-baby-carriage"></i>
+                        <span class="logo-text"><span class="pink">Little</span><span class="blue">Sprout</span></span>
+                    </a>
+                </div>
+                <div class="nav-part-center">
+                    <div class="dropdown">
+                        <button class="nav-link">Home <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+                        <div class="dropdown-menu">
+                            <a href="index.html" class="dropdown-item">Home 1</a>
+                            <a href="home2.html" class="dropdown-item">Home 2</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="shop.html" class="nav-link active">Shop</a>
+                    <a href="subscription.html" class="nav-link">Subscription</a>
+                    <a href="parenting-resources.html" class="nav-link">Parenting Resources</a>
+                    <a href="sustainability.html" class="nav-link">Sustainability</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-part-right">
+                    <div class="desktop-auth-buttons">
+                        <button onclick="toggleDirection()" class="action-btn"><i class="fa-solid fa-arrow-right-arrow-left"></i></button>
+                        <button onclick="toggleTheme()" class="action-btn"><i data-lucide="moon" class="w-4 h-4 dark:hidden"></i><i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i></button>
+                    </div>
+                    <div class="profile-dropdown">
+                        <button class="action-btn"><i data-lucide="user" class="w-4 h-4"></i></button>
+                        <div class="profile-dropdown-menu"><a href="login.html" class="dropdown-item">Login</a><a href="signup.html" class="dropdown-item">Signup</a></div>
+                    </div>
+                    <button class="hamburger" onclick="openMobileMenu()"><i data-lucide="menu" class="w-5 h-5"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+    <div class="mobile-menu" id="mobileMenuPanel">
+        <div class="mobile-header">
+            <a href="index.html" class="logo" onclick="closeMobileMenu()"><i class="fas fa-baby-carriage"></i><span class="logo-text"><span class="pink">Little</span><span class="blue">Sprout</span></span></a>
+            <button onclick="closeMobileMenu()" class="mobile-close"><i data-lucide="x" class="w-6 h-6"></i></button>
+        </div>
+        <div class="mobile-nav-items">
+            <button onclick="toggleMobileSubmenu('mobileHomeSub')" class="mobile-nav-link">Home <i data-lucide="chevron-down"></i></button>
+            <div id="mobileHomeSub" class="mobile-submenu-items"><a href="index.html"> Home 1</a><a href="home2.html"> Home 2</a></div>
+            <a href="about.html" class="mobile-nav-link">About</a>
+            <a href="shop.html" class="mobile-nav-link active">Shop</a>
+            <a href="subscription.html" class="mobile-nav-link">Subscription</a>
+            <a href="parenting-resources.html" class="mobile-nav-link">Parenting Resources</a>
+            <a href="sustainability.html" class="mobile-nav-link">Sustainability</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+            <a href="login.html" class="mobile-nav-link">Login</a>
+            <a href="signup.html" class="mobile-nav-link">Signup</a>
+            
+            <div class="mobile-settings" style="display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(96, 165, 250, 0.1)); border-radius: 40px; padding: 10px 20px; margin-top: 20px; width: fit-content; margin-left: auto; margin-right: auto;">
+                <div class="mobile-setting-item" style="display: flex; align-items: center; gap: 8px;">
+                    <button onclick="toggleDirection()" class="action-btn" style="width: 32px; height: 32px; border-radius: 40px; background: #F472B6; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: none;">
+                        <i class="fa-solid fa-left-right" style="font-size: 14px;"></i>
+                    </button>
+                </div>
+                <div class="mobile-setting-item" style="display: flex; align-items: center; gap: 8px;">
+                    <button onclick="toggleTheme()" class="action-btn" style="width: 32px; height: 32px; border-radius: 40px; background: #F472B6; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: none;">
+                        <i data-lucide="moon" class="w-3 h-3 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-3 h-3 hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart -->
+    <div class="floating-cart" onclick="openCart()">
+        <i data-lucide="shopping-bag" class="w-6 h-6 text-white"></i>
+        <span class="floating-cart-count" id="floatingCartCount">0</span>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+            <h2 class="text-2xl font-bold"><i class="fas fa-shopping-bag text-pink-500 mr-2"></i>Your Wonder Cart</h2>
+            <button onclick="closeCart()" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-6" id="cartItems"><div class="text-center text-gray-500 py-10">Your cart is empty ✨</div></div>
+        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex justify-between mb-4"><span class="font-bold">Subtotal:</span><span class="font-bold text-xl" id="cartTotal">$0</span></div>
+            <button class="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 rounded-xl font-bold">Checkout →</button>
+            <p class="text-xs text-center text-gray-500 mt-3">Free shipping on orders $50+</p>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <!-- Hero Section - Clean like Contact page (no extra badge) -->
+        <section class="relative py-20 shop-hero">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white"> Our Magical Collection </h1>
+                <p class="text-white/90 mt-3 text-lg max-w-2xl mx-auto">Ethically crafted, sustainably sourced, and made with love for your little one</p>
+            </div>
+        </section>
+
+        <!-- Shop Content -->
+        <section class="py-12 bg-white dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Horizontal Scroll Category Filters -->
+                <div class="filters-wrapper mb-8">
+                    <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-3">
+                        <button class="filter-btn active px-5 py-2 rounded-full font-semibold transition bg-pink-500 text-white" data-category="all">All Products</button>
+                        <button class="filter-btn px-5 py-2 rounded-full font-semibold transition bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100" data-category="clothing">👕 Organic Clothing</button>
+                        <button class="filter-btn px-5 py-2 rounded-full font-semibold transition bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100" data-category="toys">🧸 Wooden Toys</button>
+                        <button class="filter-btn px-5 py-2 rounded-full font-semibold transition bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100" data-category="diapers">🌿 Diaper Bundles</button>
+                        <button class="filter-btn px-5 py-2 rounded-full font-semibold transition bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-pink-100" data-category="kits">🎁 Zero-Waste Kits</button>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productsGrid"></div>
+            </div>
+        </section>
+
+        <!-- Sustainability Banner -->
+        <section class="py-12 bg-gradient-to-r from-green-50 to-teal-50 dark:from-gray-800 dark:to-gray-900">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <i class="fas fa-leaf text-4xl text-green-500 mb-3"></i>
+                <h3 class="text-2xl font-bold">Every Purchase Plants a Tree </h3>
+                <p class="text-gray-600 dark:text-gray-300 mt-2">We partner with Eden Reforestation to restore our planet, one onesie at a time.</p>
+            </div>
+        </section>
+    </main>
+
+    <div class="green-line"></div>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-900 pt-12 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+                <!-- Brand Column -->
+                <div>
+                    <a href="#" class="logo flex items-center gap-2 mb-4">
+                        <i class="fas fa-baby-carriage text-2xl text-pink-500"></i>
+                        <span class="logo-text"><span class="pink">Little</span><span class="blue">Sprout</span></span>
+                    </a>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed">Sustainable, organic baby & toddler essentials — gentle on skin and kind to the planet.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-pinterest text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube text-sm"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>About Us</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Shop All</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Subscription Box</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Our Story</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Sustainability Guide</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Size Chart</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>FAQs</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Shipping & Returns</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Stay Updated</h4>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">Get 10% off your first order + eco-tips!</p>
+                    <div class="flex flex-col gap-2">
+                        <input type="email" placeholder="Your email address" class="newsletter-input px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm">
+                        <button class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition">Subscribe →</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-xs">
+                <p>© 2025 LittleSprout — Eco-Friendly Baby & Toddler Products. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-pink-500 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-pink-500 transition">Terms of Service</a>
+                    <a href="#" class="hover:text-pink-500 transition">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        
+        const products = [
+            { id: 1, name: "Organic Cotton Sleepsuit", category: "clothing", price: 34, image: "images/d4.jpg", badge: "🌿 GOTS Certified", age: "0-24m" },
+            { id: 2, name: "Wooden Rainbow Stacker", category: "toys", price: 42, image: "images/d1.jpg", badge: "🎨 Montessori", age: "12m+" },
+            { id: 3, name: "Cloth Diaper Bundle (5 pack)", category: "diapers", price: 89, image: "images/d2.jpg", badge: "♻️ Reusable", age: "0-3y" },
+            { id: 4, name: "Zero-Waste Starter Kit", category: "kits", price: 59, image: "images/t1.jpg", badge: "🌎 Complete Set", age: "All ages" },
+            { id: 5, name: "Organic Cotton Romper", category: "clothing", price: 28, image: "images/t2.jpg", badge: "🌸 Soft Touch", age: "0-12m" },
+            { id: 6, name: "Wooden Building Blocks", category: "toys", price: 49, image: "images/d3.jpg", badge: "🧱 36 pieces", age: "18m+" },
+            { id: 7, name: "Bamboo Baby Wipes (10pk)", category: "kits", price: 24, image: "images/t3.jpg", badge: "🌱 Biodegradable", age: "All ages" },
+            { id: 8, name: "Wooden Animal Puzzle", category: "toys", price: 32, image: "images/t4.jpg", badge: "🦁 6 animals", age: "12m+" },
+             { id: 1, name: "Long Sleeve Sleepsuit", category: "clothing", price: 12, image: "images/p1.jpg", badge: "🌿 GOTS Certified", age: "0-24m" },
+            { id: 2, name: "Colorful Rainbow Stacker", category: "toys", price: 49, image: "images/p2.jpg", badge: "🎨 Montessori", age: "12m+" },
+            { id: 3, name: "Diaper Bundle (5 pack)", category: "diapers", price: 79, image: "images/p3.jpg", badge: "♻️ Reusable", age: "0-3y" },
+            { id: 4, name: " Starter Kit", category: "kits", price: 52, image: "images/t1.jpg", badge: "🌎 Complete Set", age: "All ages" },
+            { id: 5, name: "Organic Cotton Pampers", category: "clothing", price: 48, image: "images/t2.jpg", badge: "🌸 Soft Touch", age: "0-12m" },
+            { id: 6, name: "Wooden Building Blocks", category: "toys", price: 40, image: "images/t4.jpg", badge: "🧱 36 pieces", age: "18m+" },
+            { id: 7, name: "Bamboo Wipes (10pk)", category: "kits", price: 84, image: "images/t3.jpg", badge: "🌱 Biodegradable", age: "All ages" },
+            { id: 8, name: "Wooden Human Puzzle", category: "toys", price: 39, image: "images/t5.jpg", badge: "🦁 6 animals", age: "12m+" }
+        
+        ];
+        
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        function updateCartUI() {
+            const floatingCount = document.getElementById('floatingCartCount');
+            const cartItemsDiv = document.getElementById('cartItems');
+            const cartTotalSpan = document.getElementById('cartTotal');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (floatingCount) floatingCount.innerText = totalItems;
+            if (!cartItemsDiv) return;
+            if (cart.length === 0) { cartItemsDiv.innerHTML = '<div class="text-center text-gray-500 py-10">Your cart is empty ✨</div>'; if(cartTotalSpan) cartTotalSpan.innerText = '$0'; return; }
+            let html = '', total = 0;
+            cart.forEach(item => {
+                const p = products.find(pr => pr.id === item.id);
+                if(p) { total += p.price * item.quantity;
+                    html += `<div class="flex gap-4 mb-4 pb-4 border-b border-gray-200 dark:border-gray-700"><img src="${p.image}" class="w-20 h-20 rounded-lg object-cover"><div class="flex-1"><h4 class="font-bold">${p.name}</h4><p class="text-pink-500 font-bold">$${p.price}</p><div class="flex items-center gap-2 mt-2"><button onclick="updateQuantity(${item.id}, ${item.quantity-1})" class="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-800">-</button><span>${item.quantity}</span><button onclick="updateQuantity(${item.id}, ${item.quantity+1})" class="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-800">+</button><button onclick="removeFromCart(${item.id})" class="ml-auto text-red-500 text-sm">Remove</button></div></div></div>`;
+                }
+            });
+            cartItemsDiv.innerHTML = html;
+            if(cartTotalSpan) cartTotalSpan.innerText = `$${total}`;
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        
+        function addToCart(id) { const existing = cart.find(i => i.id === id); existing ? existing.quantity++ : cart.push({ id, quantity: 1 }); updateCartUI(); openCart(); }
+        function updateQuantity(id, qty) { if(qty <= 0) cart = cart.filter(i => i.id !== id); else { const item = cart.find(i => i.id === id); if(item) item.quantity = qty; } updateCartUI(); }
+        function removeFromCart(id) { cart = cart.filter(i => i.id !== id); updateCartUI(); }
+        function openCart() { document.getElementById('cartSidebar').classList.add('open'); document.getElementById('cartOverlay').classList.add('active'); document.body.classList.add('cart-open'); }
+        function closeCart() { document.getElementById('cartSidebar').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('active'); document.body.classList.remove('cart-open'); }
+        
+        function renderProducts(cat = 'all') { const grid = document.getElementById('productsGrid'); if(!grid) return; const filtered = cat === 'all' ? products : products.filter(p => p.category === cat); grid.innerHTML = filtered.map(p => `<div class="product-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700"><div class="h-56 overflow-hidden"><img src="${p.image}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"></div><div class="p-4"><div class="flex justify-between items-start"><div><h3 class="font-bold text-lg">${p.name}</h3><span class="text-xs text-pink-500">${p.badge}</span></div></div><p class="text-gray-500 text-xs mt-1">Age: ${p.age}</p><div class="flex justify-between items-center mt-3"><span class="text-2xl font-black text-pink-500">$${p.price}</span><button onclick="addToCart(${p.id})" class="bg-pink-500 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-pink-600 transition">Add to Cart</button></div></div></div>`).join(''); }
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => { btn.addEventListener('click', function() { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'bg-pink-500', 'text-white')); this.classList.add('active', 'bg-pink-500', 'text-white'); renderProducts(this.getAttribute('data-category')); }); });
+        
+        function openMobileMenu(){ document.getElementById('mobileMenuPanel').classList.add('open'); document.getElementById('mobileOverlay').classList.add('active'); document.body.classList.add('menu-open'); }
+        function closeMobileMenu(){ document.getElementById('mobileMenuPanel').classList.remove('open'); document.getElementById('mobileOverlay').classList.remove('active'); document.body.classList.remove('menu-open'); }
+        function toggleMobileSubmenu(id){ document.getElementById(id).classList.toggle('open'); }
+        function toggleTheme(){ document.documentElement.classList.toggle('dark'); document.body.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); setTimeout(()=>lucide.createIcons(),10); }
+        function toggleDirection(){ document.documentElement.dir = document.documentElement.dir === 'rtl' ? 'ltr' : 'rtl'; }
+        
+        renderProducts(); updateCartUI();
+        if(localStorage.getItem('theme') === 'dark'){ document.documentElement.classList.add('dark'); document.body.classList.add('dark'); }
+    </script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>LittleSprout | Eco-Friendly Baby & Toddler Products</title>
+<link rel="icon" type="image/png" href="images/logo.png">    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { 
+                extend: { 
+                    colors: { 
+                        primary: '#F472B6',
+                        secondary: '#60A5FA',
+                        accent: '#FCD34D',
+                        darkBg: '#0F172A'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'quicksand': ['Quicksand', 'sans-serif']
+                    }
+                } 
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; transition: all 0.3s ease; }
+        body.light { background: #FFF9FB; }
+        body.dark { background: #0F172A; }
+        body.menu-open { overflow: hidden; }
+        
+        /* ===== NAVBAR ===== */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(244, 114, 182, 0.25); transition: all 0.3s ease; }
+        .dark .navbar { background: rgba(15, 23, 42, 0.95); border-bottom-color: rgba(96, 165, 250, 0.3); }
+        .nav-container { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.5rem; }
+        .nav-3-part { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .nav-part-left { flex-shrink: 0; }
+        .logo { display: flex; align-items: center; gap: 6px; text-decoration: none; padding: 6px 8px; transition: all 0.3s ease; }
+        .logo i { font-size: 1.8rem; color: #F472B6; }
+        .logo-text { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.3px; font-family: 'Quicksand', monospace; }
+        .logo-text .pink { color: #F472B6; }
+        .logo-text .blue { color: #60A5FA; }
+        .dark .logo-text .pink { color: #F472B6; }
+        .dark .logo-text .blue { color: #60A5FA; }
+        
+        .nav-part-center { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.25rem; white-space: nowrap; }
+        .nav-link { font-size: 14px; font-weight: 600; padding: 8px 12px; border-radius: 40px; color: #1F2937; transition: all 0.3s ease; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; text-decoration: none; white-space: nowrap; }
+        .dark .nav-link { color: #E5E7EB; }
+        .nav-link:hover, .nav-link.active { background: #F472B6; color: white !important; box-shadow: 0 5px 15px rgba(244, 114, 182, 0.3); transform: translateY(-2px); }
+        .dark .nav-link:hover, .dark .nav-link.active { background: #60A5FA; color: white !important; }
+        
+        .dropdown { position: relative; }
+        .dropdown-menu { position: absolute; top: 100%; margin-top: 12px; min-width: 220px; background: white; border-radius: 24px; padding: 10px; box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15); border: 1px solid rgba(244, 114, 182, 0.2); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.25s ease; z-index: 1001; }
+        .dark .dropdown-menu { background: #1E293B; border-color: rgba(96, 165, 250, 0.3); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 16px; color: #1F2937; font-weight: 500; font-size: 13px; transition: all 0.2s ease; text-decoration: none; cursor: pointer; }
+        .dark .dropdown-item { color: #E5E7EB; }
+        .dropdown-item:hover { background: #F472B6; color: white; transform: translateX(5px); }
+        .dark .dropdown-item:hover { background: #60A5FA; }
+        
+        .profile-dropdown { position: relative; }
+        .profile-dropdown-menu { position: absolute; top: 100%; margin-top: 12px; min-width: 180px; background: white; border-radius: 24px; padding: 10px; box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15); border: 1px solid rgba(244, 114, 182, 0.2); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.25s ease; z-index: 1001; right: 0; left: auto; }
+        .dark .profile-dropdown-menu { background: #1E293B; border-color: rgba(96, 165, 250, 0.3); }
+        .profile-dropdown:hover .profile-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        
+        .nav-part-right { flex-shrink: 0; display: flex; align-items: center; gap: 0.5rem; }
+        .action-btn { width: 40px; height: 40px; border-radius: 40px; background: #F472B6; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: none; box-shadow: 0 4px 12px rgba(244, 114, 182, 0.3); flex-shrink: 0; }
+        .dark .action-btn { background: #60A5FA; }
+        .action-btn:hover { transform: translateY(-2px) scale(1.05); }
+        .hamburger { display: none; background: #F472B6; border: none; cursor: pointer; width: 40px; height: 40px; border-radius: 40px; align-items: center; justify-content: center; color: white; flex-shrink: 0; }
+        .dark .hamburger { background: #60A5FA; }
+        .desktop-auth-buttons { display: flex; align-items: center; gap: 0.5rem; }
+        
+        @media (max-width: 1100px) { .nav-link { padding: 8px 10px; font-size: 13px; } }
+        @media (max-width: 1000px) { .nav-part-center { display: none !important; } .desktop-auth-buttons { display: none !important; } .hamburger { display: flex !important; } .profile-dropdown { display: none !important; } }
+        @media (min-width: 1001px) { .hamburger { display: none !important; } .nav-part-center { display: flex !important; } .desktop-auth-buttons { display: flex !important; } .profile-dropdown { display: block !important; } }
+        @media (max-width: 768px) { .nav-container { padding: 0.5rem 1rem; } .logo-text { font-size: 1.2rem; } .logo i { font-size: 1.5rem; } .action-btn, .hamburger { width: 36px; height: 36px; } }
+        
+        /* Mobile Menu */
+        .mobile-menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 1999; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu { position: fixed; top: 0; right: 0; bottom: 0; width: 85%; max-width: 380px; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); z-index: 2000; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); overflow-y: auto; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1); }
+        .dark .mobile-menu { background: rgba(15, 23, 42, 0.98); }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(96, 165, 250, 0.15)); border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        .mobile-close { width: 48px; height: 48px; border-radius: 30px; background: #F472B6; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; border: none; }
+        .dark .mobile-close { background: #60A5FA; }
+        .mobile-nav-items { padding: 0 20px 20px 20px; }
+        .mobile-nav-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; margin: 6px 0; border-radius: 20px; font-weight: 600; background: white; border: 1px solid rgba(244, 114, 182, 0.2); cursor: pointer; text-decoration: none; color: #1F2937; width: 100%; transition: all 0.25s ease; }
+        .dark .mobile-nav-link { background: #1E293B; color: #E5E7EB; border-color: rgba(96, 165, 250, 0.25); }
+        .mobile-nav-link:hover, .mobile-nav-link.active { background: linear-gradient(135deg, #F472B6, #60A5FA); color: white !important; transform: translateX(5px); }
+        .mobile-submenu-items { margin-left: 20px; padding-left: 18px; border-left: 2px solid #F472B6; display: none; }
+        .dark .mobile-submenu-items { border-left-color: #60A5FA; }
+        .mobile-submenu-items.open { display: block; }
+        .mobile-submenu-items a { display: block; padding: 10px 16px; margin: 6px 0; border-radius: 16px; text-decoration: none; color: #4B5563; background: #F9FAFB; cursor: pointer; transition: all 0.2s; }
+        .dark .mobile-submenu-items a { color: #CBD5E1; background: #0F172A; }
+        .mobile-submenu-items a:hover { background: linear-gradient(135deg, #F472B6, #60A5FA); color: white; }
+        .mobile-settings { background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(96, 165, 250, 0.1)); border-radius: 28px; padding: 20px; margin-top: 25px; }
+        .mobile-setting-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
+        .mobile-setting-label { font-weight: 600; display: flex; align-items: center; gap: 12px; color: #1F2937; }
+        .dark .mobile-setting-label { color: #E5E7EB; }
+
+        /* RUNNING TICKER - TRAIN STYLE */
+        .ticker-section {
+            position: relative;
+            top: 73px;
+            background: linear-gradient(135deg, #F472B6, #60A5FA);
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 998;
+        }
+        .dark .ticker-section {
+            background: linear-gradient(135deg, #db2777, #3b82f6);
+        }
+        .ticker-track {
+            display: inline-block;
+            white-space: nowrap;
+            will-change: transform;
+            animation: tickerMove 25s linear infinite;
+        }
+        .ticker-track:hover {
+            animation-play-state: paused;
+        }
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-right: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 4px 0;
+        }
+        .ticker-item i {
+            font-size: 16px;
+        }
+        .ticker-badge {
+            background: rgba(255,255,255,0.25);
+            padding: 3px 12px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+        @keyframes tickerMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .main-content { padding-top: 10px; }
+        @media (max-width: 1000px) { .ticker-section { top: 65px; } .main-content { padding-top: 65px; } }
+        
+        /* Cards & Animations */
+        .product-card, .toy-card, .subscription-card, .game-card { transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+        .product-card:hover, .toy-card:hover, .game-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 30px 40px -20px rgba(244, 114, 182, 0.3); }
+        .subscription-card:hover { transform: translateY(-12px); box-shadow: 0 35px 45px -20px rgba(96, 165, 250, 0.4); }
+        
+        /* Footer */
+        footer { background: #FFFFFF; border-top: none; }
+        .dark footer { background: #0F172A; }
+        .social-icon { transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 9999px; background: #f3f4f6; color: #4B5563; }
+        .dark .social-icon { background: #1E293B; color: #94A3B8; }
+        .social-icon:hover { background: #F472B6 !important; color: white !important; }
+        .dark .social-icon:hover { background: #60A5FA !important; }
+        
+        /* Dark mode - NO BLACK TEXT */
+        .dark, .dark * { color-scheme: dark; }
+        .dark .text-gray-900, .dark .text-gray-800, .dark .text-gray-700, .dark .text-gray-600, 
+        .dark .text-gray-500, .dark p, .dark h1, .dark h2, .dark h3, .dark h4, .dark li,
+        .dark .font-bold, .dark .font-black, .dark span:not(.pink):not(.blue) { color: #F1F5F9 !important; }
+        .dark .bg-white, .dark .bg-gray-50, .dark .bg-gray-100 { background-color: #0F172A !important; }
+        .dark .border-gray-200 { border-color: #334155 !important; }
+        .dark .bg-pink-50, .dark .bg-blue-50, .dark .bg-yellow-100, .dark .bg-green-100, 
+        .dark .bg-purple-50, .dark .bg-indigo-100 { background-color: rgba(244, 114, 182, 0.15) !important; }
+        .dark .bg-white\/60 { background-color: rgba(15, 23, 42, 0.8) !important; }
+        
+        .green-line { height: 4px; background: linear-gradient(90deg, #F472B6, #60A5FA, #F472B6); width: 100%; }
+    </style>
+</head>
+<body class="light font-inter">
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-3-part">
+                <div class="nav-part-left">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-baby-carriage"></i>
+                        <span class="logo-text"><span class="pink">Little</span><span class="blue">Sprout</span></span>
+                    </a>
+                </div>
+                <div class="nav-part-center">
+                    <div class="dropdown">
+                        <button class="nav-link active">Home <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+                        <div class="dropdown-menu">
+                            <a href="index.html" class="dropdown-item"> Home 1</a>
+                            <a href="home2.html" class="dropdown-item active"> Home 2</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="shop.html" class="nav-link">Shop</a>
+                    <a href="subscription.html" class="nav-link">Subscription</a>
+                    <a href="parenting-resources.html" class="nav-link">Parenting Resources</a>
+                    <a href="sustainability.html" class="nav-link">Sustainability</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-part-right">
+                    <div class="desktop-auth-buttons">
+                        <button onclick="toggleDirection()" class="action-btn"><i class="fa-solid fa-arrow-right-arrow-left"></i></button>
+                        <button onclick="toggleTheme()" class="action-btn"><i data-lucide="moon" class="w-4 h-4 dark:hidden"></i><i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i></button>
+                    </div>
+                    <div class="profile-dropdown">
+                        <button class="action-btn"><i data-lucide="user" class="w-4 h-4"></i></button>
+                        <div class="profile-dropdown-menu"><a href="login.html" class="dropdown-item">Login</a><a href="signup.html" class="dropdown-item">Signup</a></div>
+                    </div>
+                    <button class="hamburger" onclick="openMobileMenu()"><i data-lucide="menu" class="w-5 h-5"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+    <div class="mobile-menu" id="mobileMenuPanel">
+        <div class="mobile-header">
+            <a href="index.html" class="logo" onclick="closeMobileMenu()"><i class="fas fa-baby-carriage"></i><span class="logo-text"><span class="pink">Little</span><span class="blue">Sprout</span></span></a>
+            <button onclick="closeMobileMenu()" class="mobile-close"><i data-lucide="x" class="w-6 h-6"></i></button>
+        </div>
+        <div class="mobile-nav-items">
+            <button onclick="toggleMobileSubmenu('mobileHomeSub')" class="mobile-nav-link active">Home <i data-lucide="chevron-down"></i></button>
+            <div id="mobileHomeSub" class="mobile-submenu-items open">
+                <a href="index.html"> Home 1</a>
+                <a href="home2.html" class="active"> Home 2</a>
+            </div>
+            <a href="about.html" class="mobile-nav-link">About</a>
+            <a href="shop.html" class="mobile-nav-link">Shop</a>
+            <a href="subscription.html" class="mobile-nav-link">Subscription</a>
+            <a href="parenting-resources.html" class="mobile-nav-link">Parenting Resources</a>
+            <a href="sustainability.html" class="mobile-nav-link">Sustainability</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+            <a href="login.html" class="mobile-nav-link">Login</a>
+            <a href="signup.html" class="mobile-nav-link">Signup</a>
+            
+            <div class="mobile-settings" style="display: flex; flex-direction: row; gap: 20px; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(244, 114, 182, 0.1), rgba(96, 165, 250, 0.1)); border-radius: 40px; padding: 10px 20px; margin-top: 20px; width: fit-content; margin-left: auto; margin-right: auto;">
+                <div class="mobile-setting-item" style="display: flex; align-items: center; gap: 8px;">
+                    <button onclick="toggleDirection()" class="action-btn" style="width: 32px; height: 32px; border-radius: 40px; background: #F472B6; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: none;">
+                        <i class="fa-solid fa-left-right" style="font-size: 14px;"></i>
+                    </button>
+                </div>
+                <div class="mobile-setting-item" style="display: flex; align-items: center; gap: 8px;">
+                    <button onclick="toggleTheme()" class="action-btn" style="width: 32px; height: 32px; border-radius: 40px; background: #F472B6; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: none;">
+                        <i data-lucide="moon" class="w-3 h-3 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-3 h-3 hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RUNNING TICKER -->
+    <div class="ticker-section">
+        <div class="ticker-track" id="tickerTrack">
+            <span class="ticker-item"><i class="fas fa-leaf"></i> 🌿 Organic Cotton Sleepsuits - 20% OFF <span class="ticker-badge">New Arrival</span></span>
+            <span class="ticker-item"><i class="fas fa-tree"></i> 🌳 Buy 1, Plant 1 Tree - Join Our Mission <span class="ticker-badge">Eco-Friendly</span></span>
+            <span class="ticker-item"><i class="fas fa-gift"></i> 🎁 Free Bamboo Wipes on Orders $50+ <span class="ticker-badge">Limited Time</span></span>
+            <span class="ticker-item"><i class="fas fa-truck"></i> 🚚 Free Shipping Worldwide <span class="ticker-badge">All Orders</span></span>
+            <span class="ticker-item"><i class="fas fa-baby-carriage"></i> 👶 Subscribe & Save 15% Every Month <span class="ticker-badge">Best Value</span></span>
+            <span class="ticker-item"><i class="fas fa-heart"></i> 💕 5,000+ Happy Families Joined Us <span class="ticker-badge">Loved</span></span>
+            <span class="ticker-item"><i class="fas fa-leaf"></i> 🌿 Organic Cotton Sleepsuits - 20% OFF <span class="ticker-badge">New Arrival</span></span>
+            <span class="ticker-item"><i class="fas fa-tree"></i> 🌳 Buy 1, Plant 1 Tree - Join Our Mission <span class="ticker-badge">Eco-Friendly</span></span>
+            <span class="ticker-item"><i class="fas fa-gift"></i> 🎁 Free Bamboo Wipes on Orders $50+ <span class="ticker-badge">Limited Time</span></span>
+            <span class="ticker-item"><i class="fas fa-truck"></i> 🚚 Free Shipping Worldwide <span class="ticker-badge">All Orders</span></span>
+        </div>
+    </div>
+
+    <main class="main-content" id="mainContent">
+        <!-- HOME 1 - DEFAULT -->
+        <div id="home1Content" style="display: block;">
+            <section class="relative min-h-[85vh] flex items-center overflow-hidden bg-gradient-to-br from-pink-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+                <div class="absolute inset-0 opacity-20"><div class="absolute top-20 left-10 w-72 h-72 bg-pink-300 rounded-full blur-3xl"></div><div class="absolute bottom-10 right-10 w-80 h-80 bg-blue-300 rounded-full blur-3xl"></div></div>
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 w-full">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div class="text-center lg:text-left"><div class="inline-flex items-center gap-2 bg-white/60 dark:bg-gray-800/80 backdrop-blur-sm text-pink-500 px-4 py-2 rounded-full text-sm font-bold mb-5"><i class="fas fa-heart text-pink-400"></i><span>100% Organic · Eco-Friendly</span></div><h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-gray-800 dark:text-white leading-tight">Soft & Sustainable <span class="text-pink-500">for Little Ones</span></h1><p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mt-6 mb-8">Organic cotton clothing, heirloom wooden toys, cloth diaper bundles, zero-waste kits & monthly age-appropriate boxes.</p><div class="flex flex-wrap gap-4 justify-center lg:justify-start"><a href="shop.html" class="bg-pink-500 text-white px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold shadow-lg hover:bg-pink-600 transition">Shop Collection</a><a href="subscription.html" class="bg-white dark:bg-gray-800 text-pink-500 px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold border border-pink-300 shadow-md">Explore Subscription →</a></div></div>
+                        <div class="relative"><div class="rounded-[60px] md:rounded-[80px] rounded-bl-[100px] md:rounded-bl-[200px] overflow-hidden shadow-2xl border-4 md:border-8 border-white dark:border-gray-700"><img src="images/h2.jpg" alt="baby organic" class="w-full h-auto object-cover"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-12 md:py-20 bg-white dark:bg-gray-900"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-8 md:mb-12"><span class="text-pink-500 font-bold text-sm uppercase">Natural Materials</span><h2 class="text-3xl md:text-4xl font-black text-gray-800 dark:text-white">Organic Clothing & Heirloom Wooden Toys</h2></div><div class="grid md:grid-cols-2 gap-6 md:gap-8"><div class="product-card bg-pink-50/40 dark:bg-gray-800 rounded-2xl md:rounded-3xl overflow-hidden shadow-lg"><img src="images/h3.jpg" class="h-48 md:h-64 w-full object-cover"><div class="p-4 md:p-6"><h3 class="text-xl md:text-2xl font-black text-gray-800 dark:text-white">GOTS Certified Sleepsuits</h3><p class="text-gray-600 dark:text-gray-300 text-sm md:text-base">Soft organic cotton, eco-friendly dyes, 0-24 months.</p><div class="flex flex-wrap gap-2 mt-3"><span class="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-xs">🌿 Hypoallergenic</span><span class="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-xs">♻️ Biodegradable</span></div><a href="shop.html" class="inline-block mt-4 text-pink-500 font-bold">Shop Now →</a></div></div><div class="product-card bg-blue-50/40 dark:bg-gray-800 rounded-2xl md:rounded-3xl overflow-hidden shadow-lg"><img src="images/h4.jpg" class="h-48 md:h-64 w-full object-cover"><div class="p-4 md:p-6"><h3 class="text-xl md:text-2xl font-black text-gray-800 dark:text-white">Wooden Montessori Toys</h3><p class="text-gray-600 dark:text-gray-300">Sustainable maple, non-toxic finishes.</p><div class="flex flex-wrap gap-2 mt-3"><span class="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-xs">🌎 FSC Certified</span><span class="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-xs">🎨 Water-based paints</span></div><a href="shop.html" class="inline-block mt-4 text-pink-500 font-bold">Discover Toys →</a></div></div></div></div></section>
+
+            <section class="py-12 md:py-20 bg-gradient-to-r from-pink-100 to-blue-100 dark:from-gray-800 dark:to-gray-900"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-8 md:mb-12"><i class="fas fa-puzzle-piece text-3xl md:text-4xl text-pink-500 mb-2"></i><h2 class="text-3xl md:text-4xl font-black text-gray-800 dark:text-white"> Featured Eco-Toys </h2><p class="text-gray-600 dark:text-gray-300">Developmental & plastic-free treasures</p></div><div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"><div class="toy-card bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl p-3 md:p-5 text-center shadow-md"><div class="w-16 h-16 md:w-24 md:h-24 mx-auto bg-pink-100 dark:bg-pink-900/30 rounded-full flex items-center justify-center"><i class="fas fa-cubes text-2xl md:text-4xl text-pink-500"></i></div><h3 class="font-bold text-sm md:text-lg mt-2">Wooden Blocks</h3><p class="text-xs md:text-sm text-gray-500">36pcs natural</p></div><div class="toy-card bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl p-3 md:p-5 text-center shadow-md"><div class="w-16 h-16 md:w-24 md:h-24 mx-auto bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center"><i class="fas fa-puzzle-piece text-2xl md:text-4xl text-blue-500"></i></div><h3 class="font-bold text-sm md:text-lg mt-2">Organic Doll</h3><p class="text-xs md:text-sm text-gray-500">Handmade</p></div><div class="toy-card bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl p-3 md:p-5 text-center shadow-md"><div class="w-16 h-16 md:w-24 md:h-24 mx-auto bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center"><i class="fas fa-leaf text-2xl md:text-4xl text-pink-500"></i></div><h3 class="font-bold text-sm md:text-lg mt-2">Rainbow Stacker</h3><p class="text-xs md:text-sm text-gray-500">Montessori</p></div><div class="toy-card bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl p-3 md:p-5 text-center shadow-md"><div class="w-16 h-16 md:w-24 md:h-24 mx-auto bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center"><i class="fas fa-car-side text-2xl md:text-4xl text-blue-500"></i></div><h3 class="font-bold text-sm md:text-lg mt-2">Wooden Cars</h3><p class="text-xs md:text-sm text-gray-500">Set of 3</p></div></div></div></section>
+
+            <section class="py-12 md:py-20 bg-white dark:bg-gray-900"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 md:gap-12 items-center"><div><img src="images/h5.jpg" class="rounded-2xl md:rounded-3xl shadow-xl border-4 border-white dark:border-gray-700 w-full"></div><div><span class="text-pink-500 font-bold">Zero Waste Mission</span><h2 class="text-3xl md:text-4xl font-black mt-2 text-gray-800 dark:text-white">Cloth Diaper Bundles & Zero-Waste Kits</h2><p class="text-gray-600 dark:text-gray-300 mt-4">Premium bamboo cloth diapers, reusable wipes, compostable liners. Save 1000+ diapers from landfill.</p><div class="bg-pink-50 dark:bg-pink-900/20 p-4 md:p-5 rounded-2xl mt-6"><i class="fas fa-recycle text-pink-500 text-xl md:text-2xl"></i><p class="font-bold text-gray-800 dark:text-white mt-2">Complete Zero-Waste Kit: glass bottles, bamboo utensils, vegan soap.</p></div><div class="flex flex-wrap gap-4 mt-6"><a href="shop.html" class="bg-pink-500 text-white px-5 md:px-6 py-2 md:py-3 rounded-xl">Shop Bundles</a><a href="shop.html" class="border border-pink-500 text-pink-500 px-5 md:px-6 py-2 md:py-3 rounded-xl">Zero-Waste Kit</a></div></div></div></section>
+
+            <section class="py-12 md:py-20 bg-gray-50 dark:bg-gray-800/50"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center"><h2 class="text-3xl md:text-4xl font-black text-gray-800 dark:text-white"> Monthly Age‑Appropriate Boxes</h2><p class="text-gray-600 dark:text-gray-300 mt-2">Tailored for each stage</p></div><div class="grid md:grid-cols-3 gap-6 md:gap-8 mt-8 md:mt-12"><div class="subscription-card bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-lg text-center"><div class="bg-pink-200 dark:bg-pink-900/40 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mx-auto"><i class="fas fa-seedling text-2xl md:text-3xl text-pink-500"></i></div><h3 class="text-xl md:text-2xl font-bold mt-3">Sprout (0-6m)</h3><ul class="mt-4 space-y-2 text-sm"><li>✦ 2 Organic Onesies</li><li>✦ Wooden Teether</li><li>✦ Reusable Nursing Pads</li></ul><p class="text-2xl md:text-3xl font-black text-pink-500 mt-4">$39<span class="text-sm">/month</span></p><button class="bg-pink-500 text-white py-2 px-5 md:px-6 rounded-full mt-4 text-sm md:text-base">Subscribe</button></div><div class="subscription-card bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-lg text-center border-2 border-pink-400 transform scale-105"><div class="bg-blue-200 dark:bg-blue-900/40 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mx-auto"><i class="fas fa-child text-2xl md:text-3xl text-blue-500"></i></div><h3 class="text-xl md:text-2xl font-bold mt-3">Explorer (6-12m)</h3><ul class="mt-4 space-y-2 text-sm"><li>✦ Sleepsuit + Bib Set</li><li>✦ Sensory Puzzle</li><li>✦ Silicone Feeding Set</li></ul><p class="text-2xl md:text-3xl font-black text-pink-500 mt-4">$49<span class="text-sm">/month</span></p><button class="bg-pink-500 text-white py-2 px-5 md:px-6 rounded-full mt-4">Subscribe</button></div><div class="subscription-card bg-white dark:bg-gray-900 rounded-2xl p-5 md:p-6 shadow-lg text-center"><div class="bg-yellow-200 dark:bg-yellow-900/40 w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mx-auto"><i class="fas fa-rocket text-2xl md:text-3xl text-pink-500"></i></div><h3 class="text-xl md:text-2xl font-bold mt-3">Little Hero (12-24m)</h3><ul class="mt-4 space-y-2 text-sm"><li>✦ Organic Hoodie</li><li>✦ Wooden Train</li><li>✦ Plant-Based Crayons</li></ul><p class="text-2xl md:text-3xl font-black text-pink-500 mt-4">$59<span class="text-sm">/month</span></p><button class="bg-pink-500 text-white py-2 px-5 md:px-6 rounded-full mt-4">Subscribe</button></div></div></div></section>
+
+            <section class="py-12 md:py-20 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="text-center mb-8 md:mb-12"><i class="fas fa-gamepad text-3xl md:text-4xl text-pink-500 mb-2"></i><h2 class="text-3xl md:text-4xl font-black text-gray-800 dark:text-white"> Play & Learn Zone </h2><p class="text-gray-600 dark:text-gray-300">Fun, educational games for little minds</p></div><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"><div class="game-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl"><div class="h-40 md:h-48 bg-gradient-to-r from-pink-300 to-purple-300 dark:from-pink-800 dark:to-purple-800 flex items-center justify-center"><i class="fas fa-puzzle-piece text-5xl md:text-6xl text-white"></i></div><div class="p-4 md:p-6 text-center"><h3 class="text-xl md:text-2xl font-bold">Memory Match</h3><p class="text-gray-500 text-sm">Flip cards and match eco-friendly animals!</p><button class="mt-4 bg-pink-500 text-white px-5 md:px-6 py-2 rounded-full text-sm">Play Now 🎯</button></div></div><div class="game-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl"><div class="h-40 md:h-48 bg-gradient-to-r from-blue-300 to-cyan-300 dark:from-blue-800 dark:to-cyan-800 flex items-center justify-center"><i class="fas fa-recycle text-5xl md:text-6xl text-white"></i></div><div class="p-4 md:p-6 text-center"><h3 class="text-xl md:text-2xl font-bold">Sort the Waste</h3><p class="text-gray-500 text-sm">Learn recycling & composting!</p><button class="mt-4 bg-pink-500 text-white px-5 md:px-6 py-2 rounded-full text-sm">Start Sorting ♻️</button></div></div><div class="game-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl"><div class="h-40 md:h-48 bg-gradient-to-r from-green-300 to-teal-300 dark:from-green-800 dark:to-teal-800 flex items-center justify-center"><i class="fas fa-leaf text-5xl md:text-6xl text-white"></i></div><div class="p-4 md:p-6 text-center"><h3 class="text-xl md:text-2xl font-bold">Nature Coloring</h3><p class="text-gray-500 text-sm">Digital coloring with plants & animals.</p><button class="mt-4 bg-pink-500 text-white px-5 md:px-6 py-2 rounded-full text-sm">Color Now 🎨</button></div></div></div><div class="text-center mt-8 md:mt-10"><p class="text-gray-500 text-sm md:text-base"> New games every month! Safe, ad-free, and planet-friendly </p></div></div></section>
+
+            <section class="py-12 md:py-16 bg-white dark:bg-gray-900"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-center"><div><i class="fas fa-truck text-2xl md:text-3xl text-pink-500"></i><p class="font-bold mt-2 text-sm md:text-base">Free Shipping</p><p class="text-xs text-gray-500">On orders $50+</p></div><div><i class="fas fa-leaf text-2xl md:text-3xl text-pink-500"></i><p class="font-bold mt-2 text-sm md:text-base">Plastic-Free</p><p class="text-xs text-gray-500">100% Compostable</p></div><div><i class="fas fa-hand-holding-heart text-2xl md:text-3xl text-pink-500"></i><p class="font-bold mt-2 text-sm md:text-base">1% for Planet</p><p class="text-xs text-gray-500">Donated to Earth</p></div><div><i class="fas fa-smile text-2xl md:text-3xl text-pink-500"></i><p class="font-bold mt-2 text-sm md:text-base">Happy Babies</p><p class="text-xs text-gray-500">5k+ families</p></div></div></section>
+
+            <div class="bg-gradient-to-r from-pink-400 to-blue-400 py-10 md:py-12 text-center text-white px-4"><h3 class="text-2xl md:text-3xl font-black">Join LittleSprout Family </h3><p class="mt-2 text-sm md:text-base">Get 15% off first subscription + free bamboo starter kit</p><button class="bg-white text-pink-500 px-6 md:px-8 py-2 md:py-3 rounded-full font-bold mt-4 text-sm md:text-base">Claim Offer →</button></div>
+        </div>
+
+        
+    </main>
+
+    <div class="green-line"></div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-gray-900 pt-12 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+                <!-- Brand Column -->
+                <div>
+                    <a href="#" class="logo flex items-center gap-2 mb-4">
+                        <i class="fas fa-baby-carriage text-2xl text-pink-500"></i>
+                        <span class="logo-text"><span class="pink">Little</span><span class="blue">Sprout</span></span>
+                    </a>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed">Sustainable, organic baby & toddler essentials — gentle on skin and kind to the planet.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-pinterest text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube text-sm"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>About Us</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Shop All</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Subscription Box</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Our Story</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Sustainability Guide</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Size Chart</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>FAQs</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Shipping & Returns</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Stay Updated</h4>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">Get 10% off your first order + eco-tips!</p>
+                    <div class="flex flex-col gap-2">
+                        <input type="email" placeholder="Your email address" class="newsletter-input px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm">
+                        <button class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition">Subscribe →</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-xs">
+                <p>© 2025 LittleSprout — Eco-Friendly Baby & Toddler Products. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-pink-500 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-pink-500 transition">Terms of Service</a>
+                    <a href="#" class="hover:text-pink-500 transition">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        
+        function openMobileMenu(){ document.getElementById('mobileMenuPanel').classList.add('open'); document.getElementById('mobileOverlay').classList.add('active'); document.body.classList.add('menu-open'); }
+        function closeMobileMenu(){ document.getElementById('mobileMenuPanel').classList.remove('open'); document.getElementById('mobileOverlay').classList.remove('active'); document.body.classList.remove('menu-open'); }
+        function toggleMobileSubmenu(id){ document.getElementById(id).classList.toggle('open'); }
+        function toggleTheme(){ document.documentElement.classList.toggle('dark'); document.body.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); setTimeout(()=>lucide.createIcons(),10); }
+        function toggleDirection(){ document.documentElement.dir = document.documentElement.dir === 'rtl' ? 'ltr' : 'rtl'; }
+        
+        function switchHome(version){ 
+            const home1 = document.getElementById('home1Content'); 
+            const home2 = document.getElementById('home2Content'); 
+            if(version === 1){ 
+                home1.style.display = 'block'; 
+                home2.style.display = 'none'; 
+            } else { 
+                home1.style.display = 'none'; 
+                home2.style.display = 'block'; 
+            } 
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            closeMobileMenu(); 
+        }
+        
+        if(localStorage.getItem('theme') === 'dark'){ document.documentElement.classList.add('dark'); document.body.classList.add('dark'); }
+    </script>
+</body>
+</html>

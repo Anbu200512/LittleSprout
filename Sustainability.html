@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>LittleSprout | Sustainability - Eco-Friendly Baby & Toddler Products</title>
+    <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23F472B6'%3E%3Cpath d='M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M11,7V13H16V11H13V7H11Z' /%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { 
+                extend: { 
+                    colors: { 
+                        primary: '#F472B6',
+                        secondary: '#60A5FA',
+                        accent: '#FCD34D',
+                        darkBg: '#0F172A'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'quicksand': ['Quicksand', 'sans-serif']
+                    }
+                } 
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; transition: all 0.3s ease; }
+        body.light { background: #FFF9FB; }
+        body.dark { background: #0F172A; }
+        body.menu-open { overflow: hidden; }
+        
+        /* ===== NAVBAR ===== */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(244, 114, 182, 0.25); transition: all 0.3s ease; }
+        .dark .navbar { background: rgba(15, 23, 42, 0.95); border-bottom-color: rgba(96, 165, 250, 0.3); }
+        .nav-container { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.5rem; }
+        .nav-3-part { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .nav-part-left { flex-shrink: 0; }
+        .logo { display: flex; align-items: center; gap: 6px; text-decoration: none; padding: 6px 8px; transition: all 0.3s ease; }
+        .logo i { font-size: 1.8rem; color: #F472B6; }
+        .logo-text { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.3px; font-family: 'Quicksand', monospace; }
+        .logo-text .pink { color: #F472B6; }
+        .logo-text .blue { color: #60A5FA; }
+        .dark .logo-text .pink { color: #F472B6; }
+        .dark .logo-text .blue { color: #60A5FA; }
+        
+        .nav-part-center { flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.25rem; white-space: nowrap; }
+        .nav-link { font-size: 14px; font-weight: 600; padding: 8px 12px; border-radius: 40px; color: #1F2937; transition: all 0.3s ease; background: transparent; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; text-decoration: none; white-space: nowrap; }
+        .dark .nav-link { color: #E5E7EB; }
+        .nav-link:hover, .nav-link.active { background: #F472B6; color: white !important; box-shadow: 0 5px 15px rgba(244, 114, 182, 0.3); transform: translateY(-2px); }
+        .dark .nav-link:hover, .dark .nav-link.active { background: #60A5FA; color: white !important; }
+        
+        .dropdown { position: relative; }
+        .dropdown-menu { position: absolute; top: 100%; margin-top: 12px; min-width: 200px; background: white; border-radius: 24px; padding: 10px; box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15); border: 1px solid rgba(244, 114, 182, 0.2); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.25s ease; z-index: 1001; }
+        .dark .dropdown-menu { background: #1E293B; border-color: rgba(96, 165, 250, 0.3); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 16px; color: #1F2937; font-weight: 500; font-size: 13px; transition: all 0.2s ease; text-decoration: none; cursor: pointer; }
+        .dark .dropdown-item { color: #E5E7EB; }
+        .dropdown-item:hover { background: #F472B6; color: white; transform: translateX(5px); }
+        .dark .dropdown-item:hover { background: #60A5FA; }
+        
+        .profile-dropdown { position: relative; }
+        .profile-dropdown-menu { position: absolute; top: 100%; margin-top: 12px; min-width: 180px; background: white; border-radius: 24px; padding: 10px; box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15); border: 1px solid rgba(244, 114, 182, 0.2); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.25s ease; z-index: 1001; right: 0; left: auto; }
+        .dark .profile-dropdown-menu { background: #1E293B; border-color: rgba(96, 165, 250, 0.3); }
+        .profile-dropdown:hover .profile-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        
+        .nav-part-right { flex-shrink: 0; display: flex; align-items: center; gap: 0.5rem; }
+        .action-btn { width: 40px; height: 40px; border-radius: 40px; background: #F472B6; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: none; box-shadow: 0 4px 12px rgba(244, 114, 182, 0.3); flex-shrink: 0; }
+        .dark .action-btn { background: #60A5FA; }
+        .action-btn:hover { transform: translateY(-2px) scale(1.05); }
+        .hamburger { display: none; background: #F472B6; border: none; cursor: pointer; width: 40px; height: 40px; border-radius: 40px; align-items: center; justify-content: center; color: white; flex-shrink: 0; }
+        .dark .hamburger { background: #60A5FA; }
+        .desktop-auth-buttons { display: flex; align-items: center; gap: 0.5rem; }
+        
+        @media (max-width: 1100px) { .nav-link { padding: 8px 10px; font-size: 13px; } }
+        @media (max-width: 1000px) { .nav-part-center { display: none !important; } .desktop-auth-buttons { display: none !important; } .hamburger { display: flex !important; } .profile-dropdown { display: none !important; } }
+        @media (min-width: 1001px) { .hamburger { display: none !important; } .nav-part-center { display: flex !important; } .desktop-auth-buttons { display: flex !important; } .profile-dropdown { display: block !important; } }
+        @media (max-width: 768px) { .nav-container { padding: 0.5rem 1rem; } .logo-text { font-size: 1.2rem; } .logo i { font-size: 1.5rem; } .action-btn, .hamburger { width: 36px; height: 36px; } }
+        
+        /* Mobile Menu */
+        .mobile-menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 1999; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu { position: fixed; top: 0; right: 0; bottom: 0; width: 85%; max-width: 380px; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(20px); z-index: 2000; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); overflow-y: auto; box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1); }
+        .dark .mobile-menu { background: rgba(15, 23, 42, 0.98); }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(96, 165, 250, 0.15)); border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        .mobile-close { width: 48px; height: 48px; border-radius: 30px; background: #F472B6; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; border: none; }
+        .dark .mobile-close { background: #60A5FA; }
+        .mobile-nav-items { padding: 0 20px 20px 20px; }
+        .mobile-nav-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; margin: 6px 0; border-radius: 20px; font-weight: 600; background: white; border: 1px solid rgba(244, 114, 182, 0.2); cursor: pointer; text-decoration: none; color: #1F2937; width: 100%; transition: all 0.25s ease; }
+        .dark .mobile-nav-link { background: #1E293B; color: #E5E7EB; border-color: rgba(96, 165, 250, 0.25); }
+        .mobile-nav-link:hover, .mobile-nav-link.active { background: linear-gradient(135deg, #F472B6, #60A5FA); color: white !important; transform: translateX(5px); }
+        .mobile-submenu-items { margin-left: 20px; padding-left: 18px; border-left: 2px solid #F472B6; display: none; }
+        .dark .mobile-submenu-items { border-left-color: #60A5FA; }
+        .mobile-submenu-items.open { display: block; }
+        .mobile-submenu-items a { display: block; padding: 10px 16px; margin: 6px 0; border-radius: 16px; text-decoration: none; color: #4B5563; background: #F9FAFB; cursor: pointer; transition: all 0.2s; }
+        .dark .mobile-submenu-items a { color: #CBD5E1; background: #0F172A; }
+        .mobile-submenu-items a:hover { background: linear-gradient(135deg, #F472B6, #60A5FA); color: white; }
+        
+        .main-content { padding-top: 73px; }
+        @media (max-width: 768px) { .main-content { padding-top: 65px; } }
+        
+        /* Hero Section */
+        .sustainability-hero {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.85), rgba(96, 165, 250, 0.85)), url('images/n1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .dark .sustainability-hero {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.9), rgba(96, 165, 250, 0.9)), url('images/n1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Impact Cards */
+        .impact-card {
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .impact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -15px rgba(244, 114, 182, 0.3);
+        }
+        
+        /* Footer */
+        footer { background: #FFFFFF; border-top: none; }
+        .dark footer { background: #0F172A; }
+        .social-icon { transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 9999px; background: #f3f4f6; color: #4B5563; }
+        .dark .social-icon { background: #1E293B; color: #94A3B8; }
+        .social-icon:hover { background: #F472B6 !important; color: white !important; transform: translateY(-3px); }
+        .dark .social-icon:hover { background: #60A5FA !important; }
+        
+        .footer-link { transition: all 0.2s ease; }
+        .footer-link:hover { color: #F472B6; transform: translateX(3px); }
+        .dark .footer-link:hover { color: #60A5FA; }
+        
+        .green-line { height: 4px; background: linear-gradient(90deg, #F472B6, #60A5FA, #F472B6); width: 100%; }
+        
+        .dark, .dark * { color-scheme: dark; }
+        .dark .text-gray-900, .dark .text-gray-800, .dark .text-gray-700, .dark .text-gray-600, 
+        .dark .text-gray-500, .dark p, .dark h1, .dark h2, .dark h3, .dark h4, .dark li,
+        .dark .font-bold, .dark .font-black { color: #F1F5F9 !important; }
+        .dark .bg-white, .dark .bg-gray-50, .dark .bg-gray-100 { background-color: #0F172A !important; }
+        .dark .border-gray-200 { border-color: #334155 !important; }
+    </style>
+</head>
+<body class="light font-inter">
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-3-part">
+                <div class="nav-part-left">
+                    <a href="index.html" class="logo">
+                        <i class="fas fa-baby-carriage"></i>
+                        <span class="logo-text"><span class="pink">Little</span><span class="blue">Sprout</span></span>
+                    </a>
+                </div>
+                <div class="nav-part-center">
+                    <div class="dropdown">
+                        <button class="nav-link">Home <i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+                        <div class="dropdown-menu">
+                            <a href="index.html" class="dropdown-item">Home 1</a>
+                            <a href="home2.html" class="dropdown-item">Home 2</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="shop.html" class="nav-link">Shop</a>
+                    <a href="subscription.html" class="nav-link">Subscription</a>
+                    <a href="parenting-resources.html" class="nav-link">Parenting Resources</a>
+                    <a href="sustainability.html" class="nav-link active">Sustainability</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </div>
+                <div class="nav-part-right">
+                    <div class="desktop-auth-buttons">
+                        <button onclick="toggleDirection()" class="action-btn"><i class="fa-solid fa-arrow-right-arrow-left"></i></button>
+                        <button onclick="toggleTheme()" class="action-btn"><i data-lucide="moon" class="w-4 h-4 dark:hidden"></i><i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i></button>
+                    </div>
+                    <div class="profile-dropdown">
+                        <button class="action-btn"><i data-lucide="user" class="w-4 h-4"></i></button>
+                        <div class="profile-dropdown-menu"><a href="login.html" class="dropdown-item">Login</a><a href="signup.html" class="dropdown-item">Signup</a></div>
+                    </div>
+                    <button class="hamburger" onclick="openMobileMenu()"><i data-lucide="menu" class="w-5 h-5"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+    <div class="mobile-menu" id="mobileMenuPanel">
+        <div class="mobile-header">
+            <a href="index.html" class="logo" onclick="closeMobileMenu()"><i class="fas fa-baby-carriage"></i><span class="logo-text"><span class="pink">Little</span><span class="blue">Sprout</span></span></a>
+            <button onclick="closeMobileMenu()" class="mobile-close"><i data-lucide="x" class="w-6 h-6"></i></button>
+        </div>
+        <div class="mobile-nav-items">
+            <button onclick="toggleMobileSubmenu('mobileHomeSub')" class="mobile-nav-link">Home <i data-lucide="chevron-down"></i></button>
+            <div id="mobileHomeSub" class="mobile-submenu-items"><a href="index.html"> Home 1</a><a href="home2.html"> Home 2</a></div>
+            <a href="about.html" class="mobile-nav-link">About</a>
+            <a href="shop.html" class="mobile-nav-link">Shop</a>
+            <a href="subscription.html" class="mobile-nav-link">Subscription</a>
+            <a href="parenting-resources.html" class="mobile-nav-link">Parenting Resources</a>
+            <a href="sustainability.html" class="mobile-nav-link active">Sustainability</a>
+            <a href="contact.html" class="mobile-nav-link">Contact</a>
+            <a href="login.html" class="mobile-nav-link">Login</a>
+            <a href="signup.html" class="mobile-nav-link">Signup</a>
+            
+            <div class="flex flex-row gap-4 items-center justify-center bg-gradient-to-r from-pink-100/50 to-blue-100/50 dark:from-pink-900/20 dark:to-blue-900/20 rounded-full p-3 mt-5">
+                <button onclick="toggleDirection()" class="action-btn w-10 h-10 rounded-full bg-pink-500 text-white flex items-center justify-center"><i class="fa-solid fa-left-right"></i></button>
+                <button onclick="toggleTheme()" class="action-btn w-10 h-10 rounded-full bg-pink-500 text-white flex items-center justify-center"><i data-lucide="moon" class="w-4 h-4 dark:hidden"></i><i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="relative py-20 sustainability-hero">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white"> Our Sustainability Promise</h1>
+                <p class="text-white/90 mt-3 text-lg max-w-2xl mx-auto">Making the world greener, one onesie at a time</p>
+            </div>
+        </section>
+
+        <!-- Our Mission -->
+        <section class="py-16 bg-white dark:bg-gray-900">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <i class="fas fa-heart text-5xl text-pink-500 mb-4"></i>
+                <h2 class="text-3xl md:text-4xl font-black text-gray-800 dark:text-white">Our Mission</h2>
+                <p class="text-gray-600 dark:text-gray-300 mt-4 text-lg">At LittleSprout, we believe that every baby deserves a healthy start — and a healthy planet to grow up in. That's why we're committed to creating products that are gentle on your little one and kind to the Earth.</p>
+                <div class="mt-6 flex flex-wrap justify-center gap-4">
+                    <span class="bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 px-4 py-2 rounded-full text-sm">🌱 100% Organic</span>
+                    <span class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-full text-sm">♻️ Zero Waste</span>
+                    <span class="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-4 py-2 rounded-full text-sm">🌳 1% for the Planet</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Numbers -->
+        <section class="py-16 bg-gradient-to-r from-pink-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-black text-gray-800 dark:text-white">Our Impact So Far</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">Together with our wonderful community</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="impact-card bg-white dark:bg-gray-900 rounded-2xl p-6 text-center shadow-lg">
+                        <i class="fas fa-tree text-4xl text-pink-500 mb-3"></i>
+                        <p class="text-3xl font-black text-pink-600">15K+</p>
+                        <p class="text-sm text-gray-500">Trees Planted</p>
+                    </div>
+                    <div class="impact-card bg-white dark:bg-gray-900 rounded-2xl p-6 text-center shadow-lg">
+                        <i class="fas fa-trash-alt text-4xl text-blue-500 mb-3"></i>
+                        <p class="text-3xl font-black text-blue-600">25K+</p>
+                        <p class="text-sm text-gray-500">Plastic Bottles Saved</p>
+                    </div>
+                    <div class="impact-card bg-white dark:bg-gray-900 rounded-2xl p-6 text-center shadow-lg">
+                        <i class="fas fa-water text-4xl text-pink-500 mb-3"></i>
+                        <p class="text-3xl font-black text-pink-600">500K+</p>
+                        <p class="text-sm text-gray-500">Gallons of Water Saved</p>
+                    </div>
+                    <div class="impact-card bg-white dark:bg-gray-900 rounded-2xl p-6 text-center shadow-lg">
+                        <i class="fas fa-smile text-4xl text-blue-500 mb-3"></i>
+                        <p class="text-3xl font-black text-blue-600">5K+</p>
+                        <p class="text-sm text-gray-500">Happy Families</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sustainability Pillars -->
+        <section class="py-16 bg-white dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-black text-gray-800 dark:text-white">Our Sustainability Pillars</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center p-6">
+                        <div class="w-20 h-20 mx-auto bg-pink-100 dark:bg-pink-900/30 rounded-full flex items-center justify-center mb-4"><i class="fas fa-leaf text-3xl text-pink-600"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Organic Materials</h3>
+                        <p class="text-gray-600 dark:text-gray-400">All our fabrics are GOTS certified organic cotton. Our wood is FSC certified from responsibly managed forests.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="w-20 h-20 mx-auto bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4"><i class="fas fa-recycle text-3xl text-blue-600"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Zero Waste Packaging</h3>
+                        <p class="text-gray-600 dark:text-gray-400">100% plastic-free, compostable, and recyclable packaging. No bubble wrap, no plastic tags — ever.</p>
+                    </div>
+                    <div class="text-center p-6">
+                        <div class="w-20 h-20 mx-auto bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4"><i class="fas fa-hands-helping text-3xl text-purple-600"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Ethical Production</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Fair wages, safe working conditions, and partnerships with B Corp certified manufacturers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How We Give Back -->
+        <section class="py-16 bg-gradient-to-r from-pink-50 to-blue-50 dark:from-gray-800 dark:to-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <i class="fas fa-seedling text-4xl text-pink-500 mb-4"></i>
+                        <h2 class="text-3xl md:text-4xl font-black text-gray-800 dark:text-white">1% for the Planet</h2>
+                        <p class="text-gray-600 dark:text-gray-300 mt-4 text-lg">We're proud members of 1% for the Planet. That means 1% of all our sales goes directly to environmental nonprofits working to restore our planet.</p>
+                        <div class="mt-6 flex items-center gap-3">
+                            <div class="w-16 h-16 bg-pink-100 dark:bg-pink-900/30 rounded-full flex items-center justify-center"><i class="fas fa-tree text-2xl text-pink-600"></i></div>
+                            <div><p class="font-bold">Eden Reforestation Projects</p><p class="text-sm text-gray-500">One tree planted for every purchase</p></div>
+                        </div>
+                        <div class="mt-4 flex items-center gap-3">
+                            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center"><i class="fas fa-water text-2xl text-blue-600"></i></div>
+                            <div><p class="font-bold">Surfrider Foundation</p><p class="text-sm text-gray-500">Protecting our oceans from plastic pollution</p></div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <img src="images/n1.jpg" class="rounded-2xl shadow-xl w-full h-80 object-cover">
+                        <div class="absolute -bottom-5 -right-5 bg-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">Certified B Corp Pending</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section class="py-16 bg-white dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-black text-gray-800 dark:text-white">Our Certifications</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">Transparency you can trust</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div class="p-4">
+                        <i class="fas fa-certificate text-4xl text-pink-500 mb-2"></i>
+                        <p class="font-bold">GOTS Certified</p>
+                        <p class="text-xs text-gray-500">Global Organic Textile Standard</p>
+                    </div>
+                    <div class="p-4">
+                        <i class="fas fa-certificate text-4xl text-blue-500 mb-2"></i>
+                        <p class="font-bold">FSC Certified</p>
+                        <p class="text-xs text-gray-500">Responsibly sourced wood</p>
+                    </div>
+                    <div class="p-4">
+                        <i class="fas fa-certificate text-4xl text-pink-500 mb-2"></i>
+                        <p class="font-bold">OEKO-TEX</p>
+                        <p class="text-xs text-gray-500">Safe for baby's skin</p>
+                    </div>
+                    <div class="p-4">
+                        <i class="fas fa-certificate text-4xl text-blue-500 mb-2"></i>
+                        <p class="font-bold">Climate Neutral</p>
+                        <p class="text-xs text-gray-500">Carbon offset shipping</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <div class="bg-gradient-to-r from-pink-500 to-blue-500 py-12 text-center text-white">
+            <h3 class="text-2xl md:text-3xl font-black"> Join the Movement </h3>
+            <p class="mt-2">Every purchase makes a difference</p>
+            <button class="mt-5 bg-white text-pink-500 px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition">Shop Sustainably →</button>
+        </div>
+    </main>
+
+    <div class="green-line"></div>
+
+    <!-- Footer -->
+   <footer class="bg-white dark:bg-gray-900 pt-12 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+                <!-- Brand Column -->
+                <div>
+                    <a href="#" class="logo flex items-center gap-2 mb-4">
+                        <i class="fas fa-baby-carriage text-2xl text-pink-500"></i>
+                        <span class="logo-text"><span class="pink">Little</span><span class="blue">Sprout</span></span>
+                    </a>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed">Sustainable, organic baby & toddler essentials — gentle on skin and kind to the planet.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-pinterest text-sm"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube text-sm"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>About Us</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Shop All</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Subscription Box</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Our Story</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Sustainability Guide</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Size Chart</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>FAQs</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Shipping & Returns</a></li>
+                        <li><a href="#" class="footer-link text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2"><i class="fas fa-chevron-right text-pink-500 text-xs"></i>Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Stay Updated</h4>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-3">Get 10% off your first order + eco-tips!</p>
+                    <div class="flex flex-col gap-2">
+                        <input type="email" placeholder="Your email address" class="newsletter-input px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm">
+                        <button class="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:opacity-90 transition">Subscribe →</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Bar -->
+            <div class="pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-xs">
+                <p>© 2025 LittleSprout — Eco-Friendly Baby & Toddler Products. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-pink-500 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-pink-500 transition">Terms of Service</a>
+                    <a href="#" class="hover:text-pink-500 transition">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        
+        function openMobileMenu(){ document.getElementById('mobileMenuPanel').classList.add('open'); document.getElementById('mobileOverlay').classList.add('active'); document.body.classList.add('menu-open'); }
+        function closeMobileMenu(){ document.getElementById('mobileMenuPanel').classList.remove('open'); document.getElementById('mobileOverlay').classList.remove('active'); document.body.classList.remove('menu-open'); }
+        function toggleMobileSubmenu(id){ document.getElementById(id).classList.toggle('open'); }
+        function toggleTheme(){ document.documentElement.classList.toggle('dark'); document.body.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); setTimeout(()=>lucide.createIcons(),10); }
+        function toggleDirection(){ document.documentElement.dir = document.documentElement.dir === 'rtl' ? 'ltr' : 'rtl'; }
+        
+        if(localStorage.getItem('theme') === 'dark'){ document.documentElement.classList.add('dark'); document.body.classList.add('dark'); }
+    </script>
+</body>
+</html>
