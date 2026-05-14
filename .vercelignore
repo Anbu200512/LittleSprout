@@ -1,0 +1,4 @@
+# Don't ignore any HTML files
+!*.html
+node_modules
+.git
