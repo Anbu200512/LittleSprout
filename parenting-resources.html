@@ -34,6 +34,44 @@
         body.dark { background: #0F172A; }
         body.menu-open { overflow: hidden; }
         
+/* Typography Standardization */
+
+h1 {
+    font-weight: 600 !important;
+}
+
+h2 {
+    font-weight: 600 !important;
+}
+
+h3 {
+    font-weight: 550 !important;
+}
+
+h4 {
+    font-weight: 550 !important;
+}
+
+h5,
+h6 {
+    font-weight: 500 !important;
+}
+
+p,
+span,
+li,
+label,
+input,
+textarea {
+    font-weight: 400 !important;
+}
+
+button,
+.btn,
+.nav-link {
+    font-weight: 500 !important;
+}
+
         /* ===== NAVBAR ===== */
         .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(244, 114, 182, 0.25); transition: all 0.3s ease; }
         .dark .navbar { background: rgba(15, 23, 42, 0.95); border-bottom-color: rgba(96, 165, 250, 0.3); }
@@ -380,16 +418,16 @@
             if (!grid) return;
             const filtered = category === 'all' ? articles : articles.filter(a => a.category === category);
             grid.innerHTML = filtered.map(article => `
-                <div class="article-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700">
-                    <img src="${article.image}" class="w-full h-48 object-cover">
-                    <div class="p-5">
+<div class="article-card bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col h-full">                    <img src="${article.image}" class="w-full h-48 object-cover">
+                    <div class="p-5 flex flex-col flex-grow">
                         <div class="flex justify-between items-center text-xs text-gray-500 mb-2">
                             <span class="bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-300 px-2 py-1 rounded-full">${article.category === 'parenting' ? '👶 Parenting' : article.category === 'eco' ? '🌿 Eco' : article.category === 'health' ? '💚 Health' : '⭐ Milestones'}</span>
                             <span>${article.date}</span>
                         </div>
                         <h3 class="font-bold text-xl mb-2">${article.title}</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">${article.excerpt}</p>
-                        <div class="flex justify-between items-center mt-4">
+<p class="text-gray-600 dark:text-gray-400 text-sm flex-grow">
+    ${article.excerpt}
+</p>                        <div class="flex justify-between items-center mt-4">
                             <span class="text-xs text-gray-500"><i class="far fa-clock mr-1"></i> ${article.readTime}</span>
                             <a href="#" class="text-pink-500 font-semibold text-sm hover:underline">Read More →</a>
                         </div>

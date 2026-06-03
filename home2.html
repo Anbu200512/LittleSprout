@@ -34,6 +34,44 @@
         body.dark { background: #0F172A; }
         body.menu-open { overflow: hidden; }
         
+/* Typography Standardization */
+
+h1 {
+    font-weight: 600 !important;
+}
+
+h2 {
+    font-weight: 600 !important;
+}
+
+h3 {
+    font-weight: 550 !important;
+}
+
+h4 {
+    font-weight: 550 !important;
+}
+
+h5,
+h6 {
+    font-weight: 500 !important;
+}
+
+p,
+span,
+li,
+label,
+input,
+textarea {
+    font-weight: 400 !important;
+}
+
+button,
+.btn,
+.nav-link {
+    font-weight: 500 !important;
+}
+
         /* ===== NAVBAR ===== */
         .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(244, 114, 182, 0.25); transition: all 0.3s ease; }
         .dark .navbar { background: rgba(15, 23, 42, 0.95); border-bottom-color: rgba(96, 165, 250, 0.3); }
@@ -291,9 +329,15 @@
                     <p class="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">A magical subscription box that grows with your child — delivered every moon cycle</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-6 md:gap-8">
-                    <div class="wonder-card bg-white dark:bg-gray-900 rounded-2xl p-6 text-center shadow-xl"><div class="w-20 h-20 mx-auto bg-pink-100 dark:bg-pink-900/40 rounded-full flex items-center justify-center mb-4"><i class="fas fa-feather-alt text-3xl text-pink-500"></i></div><h3 class="text-2xl font-bold">Starlight (0-6m)</h3><p class="text-gray-500 mt-2">Dreamy sleep essentials</p><ul class="mt-4 space-y-2 text-sm text-left"><li>✦ Organic swaddle blanket</li><li>✦ Wooden rattle (star shape)</li><li>✦ Lavender sleep spray</li><li>✦ Nightlight story card</li></ul><p class="text-2xl font-black text-pink-500 mt-4">$44<span class="text-sm">/month</span></p><a href="subscription.html" class="mt-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 px-6 rounded-full w-full inline-block text-center">Subscribe →</a></div>
-                    <div class="wonder-card bg-white dark:bg-gray-900 rounded-2xl p-6 text-center shadow-xl border-2 border-pink-400 transform scale-105"><div class="w-20 h-20 mx-auto bg-blue-100 dark:bg-blue-900/40 rounded-full flex items-center justify-center mb-4"><i class="fas fa-wand-magic text-3xl text-blue-500"></i></div><h3 class="text-2xl font-bold">Enchanted (6-12m)</h3><p class="text-gray-500 mt-2">⭐ Most Magical</p><ul class="mt-4 space-y-2 text-sm text-left"><li>✦ Organic romper + bib</li><li>✦ Wooden stacking rainbow</li><li>✦ Silicone teether (star)</li><li>✦ Wonderland board book</li></ul><p class="text-2xl font-black text-pink-500 mt-4">$59<span class="text-sm">/month</span></p><a href="subscription.html" class="mt-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 px-6 rounded-full w-full inline-block text-center">Subscribe →</a></div>
-                    <div class="wonder-card bg-white dark:bg-gray-900 rounded-2xl p-6 text-center shadow-xl"><div class="w-20 h-20 mx-auto bg-purple-100 dark:bg-purple-900/40 rounded-full flex items-center justify-center mb-4"><i class="fas fa-crown text-3xl text-purple-500"></i></div><h3 class="text-2xl font-bold">Royal (12-24m)</h3><p class="text-gray-500 mt-2">Toddler adventure kit</p><ul class="mt-4 space-y-2 text-sm text-left"><li>✦ Organic hooded cape</li><li>✦ Wooden castle blocks</li><li>✦ Plant-based crayons</li><li>✦ Wonderland activity book</li></ul><p class="text-2xl font-black text-pink-500 mt-4">$69<span class="text-sm">/month</span></p><a href="subscription.html" class="mt-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 px-6 rounded-full w-full inline-block text-center">Subscribe →</a></div>
+                    <div class="wonder-card bg-white dark:bg-gray-900 rounded-2xl p-6 text-center shadow-xl"><div class="w-24 h-24 mx-auto bg-gradient-to-br from-pink-100 to-purple-100 dark:from-pink-900/40 dark:to-purple-900/40 rounded-full flex items-center justify-center mb-4 shadow-lg">
+    <i class="fas fa-star-and-crescent text-4xl text-pink-500"></i>
+</div><h3 class="text-2xl font-bold">Starlight (0-6m)</h3><p class="text-gray-500 mt-2">Dreamy sleep essentials</p><ul class="mt-4 space-y-2 text-sm text-left"><li>✦ Organic swaddle blanket</li><li>✦ Wooden rattle (star shape)</li><li>✦ Lavender sleep spray</li><li>✦ Nightlight story card</li></ul><p class="text-2xl font-black text-pink-500 mt-4">$44<span class="text-sm">/month</span></p><a href="subscription.html" class="mt-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 px-6 rounded-full w-full inline-block text-center">Subscribe →</a></div>
+                    <div class="wonder-card bg-white dark:bg-gray-900 rounded-2xl p-6 text-center shadow-xl border-2 border-pink-400 transform scale-105"><div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/40 dark:to-indigo-900/40 rounded-full flex items-center justify-center mb-4 shadow-lg">
+    <i class="fas fa-hat-wizard text-4xl text-blue-500"></i>
+</div><h3 class="text-2xl font-bold">Enchanted (6-12m)</h3><p class="text-gray-500 mt-2">⭐ Most Magical</p><ul class="mt-4 space-y-2 text-sm text-left"><li>✦ Organic romper + bib</li><li>✦ Wooden stacking rainbow</li><li>✦ Silicone teether (star)</li><li>✦ Wonderland board book</li></ul><p class="text-2xl font-black text-pink-500 mt-4">$59<span class="text-sm">/month</span></p><a href="subscription.html" class="mt-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py-2 px-6 rounded-full w-full inline-block text-center">Subscribe →</a></div>
+                    <div class="wonder-card bg-white dark:bg-gray-900 rounded-2xl p-6 text-center shadow-xl"><div class="w-24 h-24 mx-auto bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 rounded-full flex items-center justify-center mb-4 shadow-lg">
+    <i class="fas fa-crown text-4xl text-purple-500"></i>
+</div><h3 class="text-2xl font-bold">Royal (12-24m)</h3><p class="text-gray-500 mt-2">Toddler adventure kit</p><ul class="mt-4 space-y-2 text-sm text-left"><li>✦ Organic hooded cape</li><li>✦ Wooden castle blocks</li><li>✦ Plant-based crayons</li><li>✦ Wonderland activity book</li></ul><p class="text-2xl font-black text-pink-500 mt-4">$69<span class="text-sm">/month</span></p><a href="subscription.html" class="mt-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white py=2 px-6 rounded-full w-full inline-block text-center">Subscribe →</a></div>
                 </div>
                 <div class="text-center mt-8"><p class="text-gray-500"> Each box comes with a magical surprise + zero-waste packaging </p></div>
             </div>
